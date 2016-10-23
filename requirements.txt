@@ -1,1 +1,6 @@
 Django==1.9.2
+oauthlib==2.0.0
+requests==2.11.1
+requests-oauthlib==0.7.0
+six==1.10.0
+tweepy==3.5.0
