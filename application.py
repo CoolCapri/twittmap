@@ -1,13 +1,13 @@
 from flask import Flask
 from flask import jsonify
 from flask import render_template
+from flask import send_file
 from flask_socketio import SocketIO
 
 from read_data import DataReader
 
 # EB looks for an 'application' callable by default.
 application = Flask(__name__)
-#application.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(application)
 
 # pre-load fixed tweets
@@ -20,7 +20,7 @@ tweets_json = pre_load_fixed_data()
 
 @application.route('/')
 def index():
-    return render_template('test1.html')
+    return render_template('new_index.html')
 
 @application.route('/searchf/')
 @application.route('/searchf/<keyword>')
@@ -33,6 +33,10 @@ def searchf(keyword=None):
             tweets_of_keyword = {keyword: tweets_json[keyword]}
         to_return = jsonify(**tweets_of_keyword)
     return to_return
+
+@application.route('/images/<filename>')
+def get_image(filename=None):
+    return send_file('static/img/'+filename, mimetype='image/png')
 
 @socketio.on('message')
 def handle_message(message):

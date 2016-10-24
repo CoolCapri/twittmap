@@ -7,14 +7,14 @@
     <style>
 
 
-	.dropbtn {
-    background-color: #000000;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
+	   .dropbtn {
+       background-color: #000000;
+       color: white;
+       padding: 16px;
+       font-size: 16px;
+       border: none;
+       cursor: pointer;
+     }
 .dropbtn:hover, .dropbtn:focus {
     background-color: #000000;
 }
@@ -118,11 +118,13 @@
       }
     </style>
   </head>
+
   <body>
 <div id="tfheader">
-		<form id="tfnewsearch" method="get">
-		        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton" name="tftextinput" id="tftextinput">
-		</form>
+  <div id="tfkeywordsearch">
+          <input type="text" class="tftextinput" name="query" id="serachbox" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton" id="searchbuttonid">
+  </div>
+
 	<div class="tfclear"></div>
 	</div>
 <div class="dropdown">
@@ -140,15 +142,6 @@
 
     <div id="map"></div>
     <script>
-	socket= io();
-	socket.on('connect',function(){
-		socket.send("connected");
-	});
-
-	socket.on('message',function(message){
-	setMapOnAll(markers); //
-	onmessage(message);
-	});
 function extracttweet(msgi){
 	var location = {lat: msgi[0],lng:msgi[1]};
 	var marker = new google.maps.Marker({
@@ -178,11 +171,38 @@ function myFunction2() {
 function getfunction(id) {
    socket.send(message);
 }
+
+function httpGetAsync(theUrl, callback)
+{
+    var searchRequest = new XMLHttpRequest();
+    searchRequest.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    searchRequest.open("GET", theUrl, true); // true for asynchronous
+    searchRequest.send();
+}
+
 //handle the search part
-$('#tftextinput').on('click',function(){
+$('#searchbuttonid').on('click',function(){
 		var keyWord=$('tftextinput').val();
-		getfunction(keyword);
+		//getfunction(keyword);
+    alert("haha");
+    httpGetAsync("http://twittmap-env.vvycwdvrkk.us-west-2.elasticbeanstalk.com/searchf/"+$(keyWord), receiveJsonData)
 });
+
+function haha(){
+  alert("haha")
+}
+
+window.onload = function() {
+     document.getElementById('searchbuttonid').onclick=haha;
+}
+
+function receiveJsonData(jsonResponse){
+  alert(jsonResponse);
+}
+
 function filterFunction() {
     var input, filter, ul, li, a, i;
     input = document.getElementById("myInput");
