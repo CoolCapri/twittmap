@@ -121,7 +121,7 @@
   <body>
 <div id="tfheader">
 		<form id="tfnewsearch" method="get">
-		        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+		        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton" name="tftextinput" id="tftextinput">
 		</form>
 	<div class="tfclear"></div>
 	</div>
@@ -149,6 +149,26 @@
 	setMapOnAll(markers); //
 	onmessage(message);
 	});
+function extracttweet(msgi){
+	var location = {lat: msgi[0],lng:msgi[1]};
+	var marker = new google.maps.Marker({
+		postition:location,
+		map:map,
+	});
+	markers.push(marker)
+}
+function setMapOnAll(markers){
+	for(var i=0;i<markers.length;i++){
+		markers[i].setMap(null);
+	}
+	markers = [];
+}
+function onmessage(event){
+	var msg=JSON.parse(event);
+	for (var i=0;i<msg.length;i++){
+				extracttweet(msg[i]);
+	}
+}
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -159,8 +179,8 @@ function getfunction(id) {
    socket.send(message);
 }
 //handle the search part
-$('#tfnewsearch').on('click',function(){
-		var keyWord=$('#tfnewsearch').val();
+$('#tftextinput').on('click',function(){
+		var keyWord=$('tftextinput').val();
 		getfunction(keyword);
 });
 function filterFunction() {
@@ -191,10 +211,8 @@ function initMap() {
     title: 'Hello World!'
   });
 }
-function onmessage(event){
-}
-function setMapOnAll(){
-}
+
+
 
     </script>
     <script async defer
