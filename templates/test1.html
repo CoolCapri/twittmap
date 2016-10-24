@@ -6,7 +6,6 @@
     <title>Simple markers</title>
     <style>
 
-
 	   .dropbtn {
        background-color: #000000;
        color: white;
@@ -15,6 +14,7 @@
        border: none;
        cursor: pointer;
      }
+
 .dropbtn:hover, .dropbtn:focus {
     background-color: #000000;
 }
@@ -130,18 +130,33 @@
 <div class="dropdown">
 <button onclick="myFunction2()" class="dropbtn">Keyword</button>
   <div id="myDropdown2" class="dropdown-content">
-  <button onclick="getfucntion(Russia)">Russia</button>
-  <button onclick="getfucntion(New York)">New York</button>
-  <button onclick="getfucntion(America)">America</button>
-  <button onclick="getfucntion(China)">China</button>
-  <button onclick="getfucntion(English)">English</button>
-  <button onclick="getfucntion(twitter)">twitter</button>
-  <button onclick="getfucntion(seattle)">seattle</button>
+  <button onclick="getfucntion(music)">music</button>
+  <button onclick="getfucntion(food)">food</button>
+  <button onclick="getfucntion(sport)">sport</button>
+  <button onclick="getfucntion(show)">show</button>
+  <button onclick="getfucntion(movie)">movie</button>
+  <button onclick="getfucntion(car)">car</button>
+  <button onclick="getfucntion(commercial)">commercial</button>
+  <button onclick="getfucntion(party)">party</button>
+  <button onclick="getfucntion(war)">war</button>
+  <button onclick="getfucntion(hello)">hello</button>
+
   </div>
 </div>
 
     <div id="map"></div>
     <script>
+
+	socket= io();
+	socket.on('connect',function(){
+		socket.send("connected");
+	});
+
+	socket.on('message',function(message){
+	setMapOnAll(markers); //
+	onmessage(message);
+	});
+
 function extracttweet(msgi){
 	var location = {lat: msgi[0],lng:msgi[1]};
 	var marker = new google.maps.Marker({
