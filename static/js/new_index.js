@@ -38,6 +38,7 @@ function initMap() {
       position: google.maps.ControlPosition.RIGHT_CENTER
     }
 	});
+  markerClusterer = new MarkerClusterer(ourMap, markers);
 }
 
 function resetVariables(){
@@ -46,6 +47,7 @@ function resetVariables(){
   created_at = [];
   tweets = [];
   deleteMarkers();
+  markerClusterer.clearMarkers();
 }
 //handle the search part
 function httpGetAsync(theUrl, keyword) {
@@ -83,10 +85,9 @@ function generateMarkers() {
   		position: location,
   		title: 'Hello World!'
   	});
-
     markers.push(marker);
-    markerClusterer = new MarkerClusterer(ourMap, markers);
   }
+  markerClusterer.addMarkers(markers)
 }
 
 function myFunction2() {
