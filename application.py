@@ -20,7 +20,7 @@ tweets_json = pre_load_fixed_data()
 
 @application.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('test1.html')
 
 @application.route('/searchf/')
 @application.route('/searchf/<keyword>')
