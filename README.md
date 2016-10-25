@@ -1,14 +1,10 @@
 # TwittMap
-
-Google:
-Google Maps Java Script API Key: AIzaSyAjUmnIh-uiDxqPKeEgUQc33ivHMspNKC0
-
-Twitter:
-Application Name: TwittMapLJSSW
-Consumer Key (API Key)	z7jbBS2d7TTLPpuitJjXnAFxI
-Consumer Secret (API Secret)	aPoHXHTffARd2xCu6mk6DCtfF64tZo0bJZflrjliPC9feXGYAw
-Access Level	Read and write (modify app permissions)
-Access Token	400230415-JKNZWHiEu7K5b13CRhKvc9i0LVWGR54PY1n700LS
-Access Token Secret	WVC9Lpmz3gfUQfDcEfeu0v6RLNHYurA9EikS1xUsKcmaS
-Owner	ShuoWang2
-Owner ID	400230415
+Shuo Wang & Jisong Liu
+### Note
+Check twittmap-env.vvycwdvrkk.us-west-2.elasticbeanstalk.com
+Deployed on Elastic Beanstalk, built on Flask web framework. Tweets are streamed using Twitter Streaming API via Tweepy.
+Select keywords from keyword list or type a word to search (Pre-defined words only, other words will show "No results found")
+Pre-defined keywords: movie, commercial, car, music, food, sport, party
+Display of results may take seconds (due to t2.micro hardware limitation)
+Markers are shown for each tweet. They are clustered when zoomed out.
+User can click on markers to see details of tweets.
