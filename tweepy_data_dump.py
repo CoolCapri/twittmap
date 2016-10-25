@@ -2,10 +2,10 @@ import tweepy
 import json
 
 #Variables that contains the user credentials to access Twitter API
-access_token = "400230415-ux7Y4c39rYY9xpAtGbrJ4DZYTadG6jm3fcTWty0r"
-access_token_secret = "7xhbqgjA534BLQtQiF1noLQzCWoaibFLr3CgqZXEH8xdC"
-consumer_key = "CzvMTfQts9FMoCgrAN6yTZf0s"
-consumer_secret = "3ua5HM1tGocC0YIpyV9OGDQWqI43pT5FCRv1XH6k4KrS66hscz"
+access_token = "Fill in Access Token"
+access_token_secret = "Fill in Access Secret"
+consumer_key = "Fill in Consumer Key"
+consumer_secret = "Fill in Consumer Secret"
 
 
 class MyStreamListener(tweepy.StreamListener):
