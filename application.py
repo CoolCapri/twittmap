@@ -19,7 +19,17 @@ tweets_json = pre_load_fixed_data()
 @application.route('/')
 def index():
     return render_template('index.html')
-
+@application.route('/search/<keyword>')
+def search(keyword=None)
+    r=requests.get("url"+keyword+"&size=10000")
+    output_coord=[]
+    dic=jsonify(r)
+    length=len(dic["hits"]["hits"])
+    for i in xrange(0,length):
+        coord=[float(dic['hits']['hits'][i]['_source']['geo'][0]),float(dic['hits']['hits'][i]['_source']['geo'][1])]
+        output_coord.append(coord)
+    json_output_coord=json.dumps(output_coord)
+    return json_output_coord
 @application.route('/searchf/')
 @application.route('/searchf/<keyword>')
 def searchf(keyword=None):
