@@ -15,11 +15,11 @@ var prev_infowindow = null;
 
 function searchKeyword(){
   var keyword = $('#serachbox').val();
-  httpGetAsync("searchf/", keyword);
+  httpGetAsync("search/", keyword);
 }
 
 function searchKeyword2(keyword){
-  httpGetAsync("searchf/", keyword);
+  httpGetAsync("search/", keyword);
 }
 
 function initMap() {
@@ -53,7 +53,7 @@ function resetVariables(){
 //handle the search part
 function httpGetAsync(theUrl, keyword) {
   resetVariables()
-  $.getJSON(theUrl, function(result){
+  $.getJSON(theUrl + keyword, function(result){
       processJsonResult(result, keyword);
   });
 }

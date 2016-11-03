@@ -4,6 +4,7 @@ from flask import render_template
 from flask import send_file
 
 from read_data import DataReader
+from essearch import ESSearch
 
 # EB looks for an 'application' callable by default.
 application = Flask(__name__)
@@ -16,20 +17,12 @@ def pre_load_fixed_data():
 
 tweets_json = pre_load_fixed_data()
 
+essearch = ESSearch()
+
 @application.route('/')
 def index():
     return render_template('index.html')
-@application.route('/search/<keyword>')
-def search(keyword=None)
-    r=requests.get("url"+keyword+"&size=10000")
-    output_coord=[]
-    dic=jsonify(r)
-    length=len(dic["hits"]["hits"])
-    for i in xrange(0,length):
-        coord=[float(dic['hits']['hits'][i]['_source']['geo'][0]),float(dic['hits']['hits'][i]['_source']['geo'][1])]
-        output_coord.append(coord)
-    json_output_coord=json.dumps(output_coord)
-    return json_output_coord
+
 @application.route('/searchf/')
 @application.route('/searchf/<keyword>')
 def searchf(keyword=None):
@@ -40,6 +33,17 @@ def searchf(keyword=None):
         if keyword in tweets_json:
             tweets_of_keyword = {keyword: tweets_json[keyword]}
         to_return = jsonify(**tweets_of_keyword)
+    return to_return
+
+@application.route('/search/')
+@application.route('/search/<keyword>')
+def search(keyword=None):
+    if keyword is None:
+        tweets_of_keyword = {"all": []}
+        to_return = jsonify(**tweets_of_keyword)
+    else:
+        search_result = essearch.search(keyword)
+        to_return = jsonify(**search_result)
     return to_return
 
 @application.route('/images/<filename>')
